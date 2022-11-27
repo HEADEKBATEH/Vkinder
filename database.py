@@ -12,7 +12,7 @@ connection.autocommit = True
 
 
 def create_table_users():
-    """СОЗДАНИЕ ТАБЛИЦЫ USERS (НАЙДЕННЫЕ ПОЛЬЗОВАТЕЛИ"""
+    """СОЗДАНИЕ ТАБЛИЦЫ USERS (НАЙДЕННЫЕ ПОЛЬЗОВАТЕЛИ)"""
     with connection.cursor() as cursor:
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS users(
@@ -45,14 +45,16 @@ def insert_data_users(first_name, last_name, vk_id, vk_link):
         )
 
 
-def insert_data_seen_users(vk_id, offset):
+def insert_data_seen_users(vk_id):
     """ВСТАВКА ДАННЫХ В ТАБЛИЦУ SEEN_USERS"""
     with connection.cursor() as cursor:
         cursor.execute(
-            f"""INSERT INTO seen_users (vk_id) 
-            VALUES ('{vk_id}')
-            OFFSET '{offset}';"""
+            """
+            INSERT INTO seen_users (vk_id) 
+            VALUES (%s);
+            """, (vk_id,)
         )
+    connection.commit()
 
 
 def select(offset):
@@ -93,6 +95,6 @@ def drop_seen_users():
 
 def creating_database():
     drop_users()
-    drop_seen_users()
+    # drop_seen_users()
     create_table_users()
     create_table_seen_users()
