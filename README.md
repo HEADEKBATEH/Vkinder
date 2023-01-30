@@ -1,6 +1,8 @@
 # Vkinder
 What the project is about: This project is a dating app based on the vk.com API.
+
 Why this project: This project is a study assignment.
+
 Assembly and start-up instructions:
 1. Go to the project Information page.
 2. Enter the data in the following variables:
